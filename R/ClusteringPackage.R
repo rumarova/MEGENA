@@ -1030,9 +1030,10 @@ output.figures = FALSE)
 	 gene.pvalue <- lapply(sigModule.stat,function(x) {vec <- -log(x$pvalue);names(vec) <- as.character(x[[1]]);return(vec)});names(gene.pvalue) <- NULL
 	 gene.pvalue <- do.call(c,gene.pvalue);
 	 gene.pvalue <- gene.pvalue[intersect(names(gene.pvalue),all.genes)]
-	 loglik.matrix[is.na(loglik.matrix)] <- 0;
+	 print(names(gene.pvalue))
 	 loglik.matrix[match(names(gene.pvalue),all.genes),i] <- gene.pvalue
 	}
+	loglik.matrix[is.na(loglik.matrix)] <- 0;			     
 	loglik.matrix[is.infinite(loglik.matrix)] <- max(setdiff(loglik.matrix,Inf),na.rm = T);
 
 	##### identify scales that cluster together in first PCs
