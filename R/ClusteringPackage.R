@@ -1029,10 +1029,8 @@ output.figures = FALSE)
 	 sigModule.stat <- module.degreeStat[names(cut.output)]
 	 gene.pvalue <- lapply(sigModule.stat,function(x) {vec <- -log(x$pvalue);names(vec) <- as.character(x[[1]]);return(vec)});names(gene.pvalue) <- NULL
 	 gene.pvalue <- do.call(c,gene.pvalue);
-	 gene.pvalue <- gene.pvalue[intersect(names(gene.pvalue),all.genes)]
-	 cat(names(gene.pvalue))
-	 cat(table(is.na(names(gene.pvalue))))	
-	 loglik.matrix[match(names(gene.pvalue),all.genes),i] <- gene.pvalue
+	 gene.pvalue <- gene.pvalue[intersect(names(gene.pvalue),all.genes)]	
+	 loglik.matrix[match(as.vector(na.omit(names(gene.pvalue))),all.genes),i] <- gene.pvalue
 	}
 	loglik.matrix[is.na(loglik.matrix)] <- 0;			     
 	loglik.matrix[is.infinite(loglik.matrix)] <- max(setdiff(loglik.matrix,Inf),na.rm = T);
